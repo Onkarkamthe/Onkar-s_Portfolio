@@ -20,6 +20,7 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             --radius: 16px;
+            --whatsapp: #25D366;
         }
 
         * {
@@ -149,10 +150,23 @@
             border-color: var(--light);
         }
 
-        /* Floating badge */
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Floating badge - Adjusted position */
         .portfolio-badge {
             position: fixed;
-            top: 120px;
+            top: 160px; /* Lowered position */
             right: 30px;
             background: var(--primary);
             color: white;
@@ -164,12 +178,127 @@
             transform: rotate(5deg);
             animation: float 4s ease-in-out infinite;
             cursor: pointer;
+            transition: var(--transition);
         }
 
         .portfolio-badge:hover {
             animation: none;
             transform: rotate(0) scale(1.05);
             background: var(--primary-dark);
+        }
+
+        /* WhatsApp contact panel */
+        .whatsapp-panel {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            width: 300px;
+            overflow: hidden;
+            transform: translateY(120%);
+            transition: transform 0.5s ease-out;
+        }
+
+        .whatsapp-panel.show {
+            transform: translateY(0);
+        }
+
+        .whatsapp-header {
+            background: var(--whatsapp);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .whatsapp-header h3 {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .whatsapp-content {
+            padding: 25px;
+        }
+
+        .whatsapp-content p {
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .contact-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .contact-option i {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .contact-option.save i {
+            color: var(--secondary);
+        }
+
+        .contact-option.message i {
+            color: var(--whatsapp);
+        }
+
+        .contact-option.call i {
+            color: var(--accent);
+        }
+
+        .contact-option .text h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .contact-option .text p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
         }
 
         /* Header & Navigation */
@@ -802,26 +931,29 @@
             font-size: 1.1rem;
         }
 
-        /* Portfolio CTA */
-        .portfolio-cta {
+        /* WhatsApp Button */
+        .whatsapp-button {
             position: fixed;
             bottom: 30px;
-            left: 30px;
-            background: var(--primary);
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: var(--whatsapp);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-weight: 600;
+            font-size: 2rem;
             box-shadow: var(--shadow);
-            z-index: 1000;
-            animation: pulse 2s infinite;
+            z-index: 999;
             cursor: pointer;
+            transition: var(--transition);
         }
 
-        .portfolio-cta:hover {
-            animation: none;
-            transform: scale(1.05);
-            background: var(--primary-dark);
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
         }
 
         /* Animations */
@@ -1028,7 +1160,7 @@
             }
             
             .portfolio-badge {
-                top: 100px;
+                top: 140px;
                 right: 20px;
                 padding: 10px 20px;
                 font-size: 0.9rem;
@@ -1076,10 +1208,17 @@
             }
             
             .portfolio-badge {
-                top: 80px;
+                top: 120px;
                 right: 10px;
                 padding: 8px 16px;
                 font-size: 0.8rem;
+                transform: rotate(0);
+            }
+            
+            .whatsapp-panel {
+                width: 90%;
+                right: 5%;
+                bottom: 20px;
             }
         }
 
@@ -1110,7 +1249,7 @@
             }
             
             .portfolio-badge {
-                top: 70px;
+                top: 100px;
                 right: 5px;
                 padding: 6px 12px;
                 font-size: 0.7rem;
@@ -1119,10 +1258,51 @@
     </style>
 </head>
 <body>
-    <!-- Portfolio CTA Badge -->
+    <!-- Portfolio CTA Badge - Position Adjusted -->
     <a href="#contact" class="portfolio-badge">
         Want this portfolio? Contact me!
     </a>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" id="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- WhatsApp Contact Panel -->
+    <div class="whatsapp-panel" id="whatsapp-panel">
+        <div class="close-panel" id="close-panel">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="whatsapp-header">
+            <h3><i class="fab fa-whatsapp"></i> Contact Onkar</h3>
+        </div>
+        <div class="whatsapp-content">
+            <p>Save this number and message for inquiries. Otherwise, you can call directly.</p>
+            <div class="contact-options">
+                <div class="contact-option save" id="save-contact">
+                    <i class="fas fa-save"></i>
+                    <div class="text">
+                        <h4>Save Contact</h4>
+                        <p>Save Onkar's number to your contacts</p>
+                    </div>
+                </div>
+                <div class="contact-option message" id="whatsapp-message">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="text">
+                        <h4>Message on WhatsApp</h4>
+                        <p>Start a conversation with Onkar</p>
+                    </div>
+                </div>
+                <div class="contact-option call" id="call-now">
+                    <i class="fas fa-phone"></i>
+                    <div class="text">
+                        <h4>Call Now</h4>
+                        <p>Call Onkar directly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header id="header">
@@ -1450,7 +1630,7 @@
                             <label for="message">Tell me about your project</label>
                             <textarea id="message" placeholder="I'd love to hear about your idea..." required></textarea>
                         </div>
-                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -1507,6 +1687,42 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // WhatsApp contact functionality
+        const whatsappButton = document.getElementById('whatsapp-button');
+        const whatsappPanel = document.getElementById('whatsapp-panel');
+        const closePanel = document.getElementById('close-panel');
+        const saveContact = document.getElementById('save-contact');
+        const whatsappMessage = document.getElementById('whatsapp-message');
+        const callNow = document.getElementById('call-now');
+
+        // Toggle WhatsApp panel
+        whatsappButton.addEventListener('click', () => {
+            whatsappPanel.classList.toggle('show');
+        });
+
+        // Close panel
+        closePanel.addEventListener('click', () => {
+            whatsappPanel.classList.remove('show');
+        });
+
+        // Save contact functionality
+        saveContact.addEventListener('click', () => {
+            alert('Contact saved: Onkar Kamthe - +91 8087695569');
+            whatsappPanel.classList.remove('show');
+        });
+
+        // Message on WhatsApp
+        whatsappMessage.addEventListener('click', () => {
+            window.open('https://wa.me/9180876955569', '_blank');
+            whatsappPanel.classList.remove('show');
+        });
+
+        // Call now functionality
+        callNow.addEventListener('click', () => {
+            window.location.href = 'tel:+9180876955569';
+            whatsappPanel.classList.remove('show');
         });
 
         // Form submission
